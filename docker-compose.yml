@@ -1,0 +1,56 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-guest}
+
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-ga4}
+      POSTGRES_USER: ${POSTGRES_USER:-ga4}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ga4}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  api:
+    build: ./apps/backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/backend:/app
+      - /app/node_modules
+    env_file:
+      - .env.local
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - POSTGRES_HOST=postgres
+      - SERVER_HOST=0.0.0.0
+    depends_on:
+      - rabbitmq
+      - postgres
+    command: npm run dev
+
+  worker:
+    build: ./apps/backend
+    volumes:
+      - ./apps/backend:/app
+      - /app/node_modules
+    env_file:
+      - .env.local
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+      - POSTGRES_HOST=postgres
+    depends_on:
+      - rabbitmq
+      - postgres
+    command: npm run worker
+
+volumes:
+  postgres_data:

@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "outDir": "./dist",
+        "rootDir": "./",
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+        "baseUrl": "./",
+        "paths": {
+            "@hooks/*": ["hooks/*"],
+            "@routes/*": ["routes/*"],
+            "@plugins/*": ["plugins/*"],
+            "@database/*": ["database/*"],
+            "@utils/*": ["utils/*"],
+            "@schemas/*": ["schemas/*"],
+            "@queue/*": ["queue/*"],
+            "@services/*": ["services/*"]
+        }
+    },
+    "include": [
+        "**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

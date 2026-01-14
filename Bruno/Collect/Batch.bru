@@ -1,0 +1,56 @@
+meta {
+  name: Batch
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{host}}/collect/batch
+  body: json
+  auth: inherit
+}
+
+body:json {
+  [
+    {
+      "projectId": "550e8400-e29b-41d4-a716-446655440000",
+      "eventName": "page_view",
+      "timestamp": 1736719469000,
+      "clientId": "client_123",
+      "sessionId": "session_456",
+      "path": "/home"
+    },
+    {
+      "projectId": "550e8400-e29b-41d4-a716-446655440000",
+      "eventName": "click",
+      "timestamp": 1736719470000,
+      "clientId": "client_123",
+      "sessionId": "session_456",
+      "path": "/home",
+      "params": {
+        "element": "cta_button"
+      }
+    }
+  ]
+}
+
+docs {
+  # Batch Event Collection
+  
+  Endpoint for ingesting multiple events in a single request.
+  
+  ### Interface
+  
+  Accepts an **Array** of Event objects. Each object follows the same schema as the Single Event endpoint.
+  
+  ### Performance
+  Batching is recommended for high-volume ingestion to reduce HTTP overhead.
+  
+  ### Response
+  Returns `{"status": "ok"}` upon successful ingestion of all events into RabbitMQ.
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

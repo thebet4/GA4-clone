@@ -1,0 +1,24 @@
+meta {
+  name: get
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/health
+  body: none
+  auth: inherit
+}
+
+docs {
+  # Health Check
+  
+  Simple endpoint to verify if the API server is up and running.
+  
+  ### Response
+  Returns `{"status": "ok"}` with a 200 OK status code.
+}
+
+settings {
+  encodeUrl: true
+}

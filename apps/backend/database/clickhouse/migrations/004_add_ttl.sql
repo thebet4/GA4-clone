@@ -1,0 +1,2 @@
+ALTER TABLE raw_events
+MODIFY TTL timestamp + INTERVAL 13 MONTH DELETE;

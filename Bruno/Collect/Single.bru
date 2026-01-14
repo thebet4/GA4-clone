@@ -1,0 +1,58 @@
+meta {
+  name: Single
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/collect
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "projectId": "550e8400-e29b-41d4-a716-446655440000",
+    "eventName": "search",
+    "timestamp": 1736719469020,
+    "clientId": "client_123",
+    "sessionId": "session_456",
+    "path": "/search",
+    "referrer": "https://google.com",
+    "params": {
+      "source": "organic",
+      "term": "test"
+    },
+    "sdkName": "ga4-clone-js",
+    "sdkVersion": "1.0.0"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
+
+docs {
+  # Single Event Collection
+  
+  Endpoint for ingesting a single event into the pipeline.
+  
+  ### Interface
+  
+  | Field | Type | Required | Description |
+  | :--- | :--- | :--- | :--- |
+  | `projectId` | UUID | Yes | Unique identifier for the project |
+  | `eventName` | String | Yes | Name of the event (e.g., `page_view`, `click`) |
+  | `timestamp` | Number | Yes | Unix timestamp of the event |
+  | `clientId` | String | Yes | Unique identifier for the client/user |
+  | `sessionId` | String | Yes | Unique identifier for the session |
+  | `path` | String | No | URL path where the event occurred |
+  | `referrer` | String | No | Referrer URL |
+  | `params` | Object | No | Custom key-value pairs for additional context |
+  | `sdkName` | String | No | Name of the SDK used |
+  | `sdkVersion` | String | No | Version of the SDK used |
+  
+  ### Response
+  Returns `{"status": "ok"}` upon successful ingestion into RabbitMQ.
+}
