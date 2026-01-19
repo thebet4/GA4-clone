@@ -1,6 +1,7 @@
 import 'reflect-metadata'
 import './env.ts'
 import Fastify from 'fastify'
+import cors from '@fastify/cors'
 import appRoutes from '@routes/main.ts'
 import { registerHooks } from '@hooks/main.ts'
 import { setupQueue } from '@queue/connection.ts'
@@ -17,6 +18,12 @@ const app = Fastify({
 
 app.setValidatorCompiler(validatorCompiler)
 app.setSerializerCompiler(serializerCompiler)
+
+// Enable CORS for the demo app
+app.register(cors, {
+  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true,
+})
 
 // register plugins
 app.register(clickhouse)
