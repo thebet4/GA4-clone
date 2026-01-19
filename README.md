@@ -41,7 +41,7 @@ We use [Bruno](https://www.usebruno.com/) as our API client. It's a fast and Git
 ## Current Project Status
 
 - [x] **API**: Fastify-based backend with event tracking and metrics aggregation.
-- [ ] **SDK**: Typescript package to be embedded in client websites.
+- [x] **SDK**: Typescript package to be embedded in client websites.
 - [ ] **Dashboard**: React-based UI for visualizing analytics.
 
 ## Documentation
